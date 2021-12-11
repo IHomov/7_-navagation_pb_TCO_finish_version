@@ -42,7 +42,10 @@ function CurrentPosition(position) {
                 center: [userLat, userLon],
                 zoom: 30
             });
-            DG.marker([userLat, userLon]).addTo(map).bindPopup('моё местоположение'); // added marker on map
+
+            for(let item of sorted){    
+                DG.marker([item.latitude, item.longitude]).addTo(map).bindPopup(`${item.placeRu}`);
+            }
         });
     console.log(`latitude ${userLat}; longitude ${userLon}`);
 }
