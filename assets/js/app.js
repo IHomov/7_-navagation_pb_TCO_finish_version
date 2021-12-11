@@ -36,16 +36,32 @@ function CurrentPosition(position) {
     
     OutputData(sorted); //data output to the page
 
+//Array for markers
+    function Constructor(place, latitude, longitude) {
+        this.place = place;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+    let markers = [];
+    for (let item of sorted){
+            let m = new Constructor(item.placeRu, item.longitude, item.latitude);
+        markers.push(m);
+    };
+
+
+
     var map;
         DG.then(function () {
             map = DG.map('map', {
                 center: [userLat, userLon],
-                zoom: 30
+                zoom: 14,
             });
 
-            for(let item of sorted){    
-                DG.marker([item.latitude, item.longitude]).addTo(map).bindPopup(`${item.placeRu}`);
+            for(let item of markers){    
+                DG.marker([item.latitude, item.longitude]).addTo(map).bindPopup(`${item.place}`);
             }
+                DG.marker([userLat, userLon]).addTo(map).bindPopup(`Моё место расположения`);
+
         });
     console.log(`latitude ${userLat}; longitude ${userLon}`);
 }
